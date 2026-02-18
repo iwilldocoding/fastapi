@@ -1,3 +1,5 @@
+#this whole thing was about path parametets in fastapi
+
 '''from enum import Enum
 
 from fastapi import FastAPI
@@ -22,11 +24,11 @@ async def get_model(model_name: ModelName):
 
     return {"model_name": model_name, "message": "Have some residuals"}'''
 
-from fastapi import FastAPI
+'''from fastapi import FastAPI
 from enum import Enum
 
 app=FastAPI()
 
 @app.get("/files/{file_path:path}")
 async def read_file(file_path:str):
-    return {"file_path":file_path}
+    return {"file_path":file_path}'''
