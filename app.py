@@ -32,3 +32,35 @@ app=FastAPI()
 @app.get("/files/{file_path:path}")
 async def read_file(file_path:str):
     return {"file_path":file_path}'''
+
+#now this whole code would be about the query parameters
+#this specfic section of the code performs optional query parameters operations
+'''from fastapi import FastAPI
+from enum import Enum
+
+app=FastAPI()
+
+@app.get("/items/")
+async def read_item(item_id: str, q: str | None = None):
+    if q:
+        return {"item_id": item_id, "q": q}
+    return {"item_id": item_id}'''
+
+#now since we have already done the basic query parameters operations we would perform a basic type conversion around it.
+from fastapi import FastAPI
+
+app=FastAPI()
+
+@app.get("/items/")
+async def read_item(item_id:str, q:str|None= None,short:bool=False):#now this shows that we can declare bool types in the qurey parameter
+    item ={"item_id ": item_id} 
+    if q:
+        item.update({"q":q})
+    if not short:
+        item.update(
+           { "description":"this contains originally a very long description which may lead to an error"
+        })
+        return item
+
+
+
