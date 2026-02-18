@@ -97,7 +97,8 @@ app=FastAPI()
 async def create_items(item_id:int,item:Item):
     return {"item_id":item_id,**item.model_dump()}
 '''
-from fastapi import FastAPI
+from fastapi import FastAPI,Query
+from typing impot Annotated
 from pydantic import BaseModel
 
 class Item(BaseModel):
@@ -108,13 +109,12 @@ class Item(BaseModel):
 
 app = FastAPI()
 @app.put("/items/{item_id}")
-async def update_item(item_id:int, item:Item, q:str|None=None):
+async def update_item(item_id:int, item:Item, q:Annotated[str|None=None,Query(max_length=50)]=None):
     result={"item_id":item_id,**item.model_dump()}
     if q:
         result.update({"q":q})
     return result#here we are updating the result dictonary during the execution for a given conition 
 
-
-
+# now that was an update to the dict given a condition
 
 
