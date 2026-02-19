@@ -97,7 +97,7 @@ app=FastAPI()
 async def create_items(item_id:int,item:Item):
     return {"item_id":item_id,**item.model_dump()}
 '''
-from fastapi import FastAPI,Query
+'''from fastapi import FastAPI,Query
 from typing impot Annotated
 from pydantic import BaseModel
 
@@ -113,8 +113,24 @@ async def update_item(item_id:int, item:Item, q:Annotated[str|None=None,Query(ma
     result={"item_id":item_id,**item.model_dump()}
     if q:
         result.update({"q":q})
-    return result#here we are updating the result dictonary during the execution for a given conition 
+    return result#here we are updating the result dictonary during the execution for a given conition '''
 
 # now that was an update to the dict given a condition
+from fastapi import FastAPI
+from typing import Annotated
 
+class Item(BaseModel):
+    name: str
+    description: str|None = None
+    price: float
+    tax: float|None=None
 
+app = FastAPI()
+
+@app.post("/items/")
+async def create_items(item:Annotated[str|None=None])
+async def read_items(q: Annotated[str | None, Query(max_length=50)] = None):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
